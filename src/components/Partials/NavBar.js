@@ -10,7 +10,8 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Button
 } from "reactstrap";
 
 export default class NavBar extends React.Component {
@@ -31,24 +32,9 @@ export default class NavBar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/" />
+                <NavLink href="/admin/products" />
               </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  GitHub
-                </NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Sort by
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Category</DropdownItem>
-                  <DropdownItem>Alphabetically</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>FuckPeeteInTheAss</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              <Button onClick={this.props.signout}>Log out</Button>
             </Nav>
           </Collapse>
         </Navbar>

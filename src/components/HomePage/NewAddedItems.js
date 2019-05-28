@@ -20,9 +20,7 @@ export default class AdminPersonalizeView extends React.Component {
                   backgroundImage: `url(${url.url})`,
                   backgroundSize: "cover"
                 }}
-              >
-                {console.log(url.url)}
-              </div>
+              />
             </Col>
           ))}
         </Row>
