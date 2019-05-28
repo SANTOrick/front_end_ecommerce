@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AdminPage from './components/Admin/AdminPage.js';
+import AdminLogInForm from './components/Admin/AdminLogInForm.js';
+import NavBar from './components/NavBar.js';
+import HomePage from './components/HomePage/HomePage.js';
+import AdminPersonalizedView from './components/Admin/AdminPersonalizedView.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(){
+    super()
+    this.state={
+      userToken: null,
+      admin: false,
+      basket: null
+    }
+  }
+  render(){
+    return (
+      <div className="App">
+      <NavBar />
+      <br/>
+      <AdminLogInForm />
+      <br/>
+      <NavBar />
+      <br/>
+      <AdminPersonalizedView />
+      <br/>
+      <HomePage />
+      </div>
+    );
+  }
 }
-
-export default App;
