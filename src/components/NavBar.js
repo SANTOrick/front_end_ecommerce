@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Collapse,
   Navbar,
@@ -10,24 +10,25 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from "reactstrap";
 import "./NavBar.css";
 
-export default class NavBar extends React.Component{
+export default class NavBar extends React.Component {
   constructor(props) {
-  super(props);
+    super(props);
 
-  this.toggle = this.toggle.bind(this);
-  this.state = {
-    isOpen: false
-  };
-}
-toggle() {
-  this.setState({
-    isOpen: !this.state.isOpen
-  });
-}
-  render(){
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -36,26 +37,22 @@ toggle() {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/"></NavLink>
+                <NavLink href="/components/" />
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink href="https://github.com/reactstrap/reactstrap">
+                  GitHub
+                </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Sort by
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
-                    Category
-                  </DropdownItem>
-                  <DropdownItem>
-                    Alphabetically
-                  </DropdownItem>
+                  <DropdownItem>Category</DropdownItem>
+                  <DropdownItem>Alphabetically</DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>
-                    FuckPeeteInTheAss
-                  </DropdownItem>
+                  <DropdownItem>FuckPeeteInTheAss</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
