@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 
 export default class cartViewer extends React.Component {
-
-  render(){
+  render() {
     return (
       <Table>
         <thead>
           <tr>
             <th>#</th>
-            <th></th>
+            <th />
             <th>Last Name</th>
             <th>Username</th>
           </tr>
