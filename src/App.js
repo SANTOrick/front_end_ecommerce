@@ -1,11 +1,19 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, withRouter } from "react-router-dom";
 import API from "./Api";
+import "./Assets/bootstrap/css/bootstrap.min.css";
+import "./App.css";
 
 import AdminPage from "./components/Admin/AdminPage.js";
+import ErrorPage from "./components/ErrorPage/ErrorPage.js";
+import ItemsPage from "./components/Items/ItemsPage.js";
+import Footer from "./components/Footer/Footer.js";
+import LandingPage from "./components/LandingPage/LandingPage.js";
+import ContactUs from "./components/ContactUs/ContactUs.js";
+import Privacy from "./components/Privacy/Privacy";
 import AdminLogInForm from "./components/Admin/AdminLogInForm.js";
 import NavBar from "./components/Partials/NavBar.js";
-import HomePage from "./components/HomePage/HomePage.js";
+import CreateNewItem from "./components/Partials/CreateNewItem.js";
 import AdminPersonalizedView from "./components/Admin/AdminPersonalizedView.js";
 import CartViewer from "./components/userComponents/CartViewer";
 
@@ -35,7 +43,7 @@ class App extends React.Component {
   signin = (email, token) => {
     localStorage.setItem("token", token);
     this.setState({ email }, () => {
-      this.props.history.push("/admin");
+      //this.props.history.push("/admin");
     });
   };
 
@@ -63,31 +71,45 @@ class App extends React.Component {
     this.setState({ cart });
   };
 
+  _addNewItem = newItem => {
+    fetch(API + "/products", {
+      method:"POST",
+      headers:{"Content-Type" : "application/json"},
+      body: JSON.stringify(newItem)
+    })
+  };
+
   render() {
     const { signin, signout } = this;
     const { email } = this.state;
     return (
-      <div>
-        <NavBar signout={signout} />
-        <Switch>
-          <Route exact path="/admin" component={HomePage} />
-          <Route
-            path="/"
-            component={props => <AdminLogInForm {...props} signin={signin} />}
-          />
-          <Route
-            path="/cart"
-            compoennt={props => (
-              <CartViewer
-                {...props}
-                cart={this.state.cart}
-                removeFromCart={this._removeFromCart}
-              />
-            )}
-          />
-          <Route component={() => <h1>Page not found.</h1>} />
-        </Switch>
-      </div>
+      <BrowserRouter>
+        <React.Fragment>
+          <NavBar />
+          <Switch>
+            <Route path="/" component={LandingPage} exact />
+            <Route exact path="/add_new_item" component={props=>(
+              <CreateNewItem {...props}
+              addNewItem={this._addNewItem} />
+            )} />
+            <Route
+              path="/cart"
+              compoennt={props => (
+                <CartViewer
+                  {...props}
+                  cart={this.state.cart}
+                  removeFromCart={this._removeFromCart}
+                />
+              )}
+            />
+            <Route path="/privacy" component={Privacy} exact />
+            <Route path="/items" component={ItemsPage} exact />
+            <Route path="/contacts" component={ContactUs} exact />
+            <Route path="*" component={ErrorPage} />
+          </Switch>
+          <Footer />
+        </React.Fragment>
+      </BrowserRouter>
     );
   }
 }

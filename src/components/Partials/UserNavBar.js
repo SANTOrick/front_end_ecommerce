@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import "./NavBar.css";
 
-export default class NavBar extends React.Component {
+export default class UserNavBar extends React.Component {
   constructor(props) {
     super(props);
 

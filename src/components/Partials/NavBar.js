@@ -1,18 +1,6 @@
 import React from "react";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Button
-} from "reactstrap";
+import NavButton from "./NavButton"
+import { Collapse, NavbarToggler } from "reactstrap";
 
 export default class NavBar extends React.Component {
   state = {
@@ -25,20 +13,24 @@ export default class NavBar extends React.Component {
   };
   render() {
     return (
-      <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">SiteName</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/admin/products" />
-              </NavItem>
-              <Button onClick={this.props.signout}>Log out</Button>
-            </Nav>
-          </Collapse>
-        </Navbar>
+      <nav className="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar smallNav">
+      <div className="container">
+        <a className="navbar-brand logo" href="/">
+        Lemme Smash
+        </a>
+        <NavbarToggler onClick={this.toggle} />
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <ul className="nav navbar-nav ml-auto">
+            <NavButton route={"/"} action={"Home"} key={"Home"} />
+            <NavButton
+              route={"/contacts"}
+              action={"Contact Us"}
+              key={"Contacts"}
+            />
+          </ul>
+        </Collapse>
       </div>
+    </nav>
     );
   }
 }
