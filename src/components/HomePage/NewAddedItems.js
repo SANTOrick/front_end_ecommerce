@@ -7,8 +7,8 @@ export default class NewAddedItems extends React.Component {
     return (
       <Container>
         <Row>
-          {this.props.images.map(item => (
-            <Col sm="3">
+          {this.props.images.map((item, index) => (
+            <Col sm="3" key={index}>
               <div
                 className="yomama"
                 onClick={() => this.props.handleClick(item)}

@@ -1,13 +1,15 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import API from "./Api";
 
-import AdminPage from "./components/Admin/AdminPage.js";
 import AdminLogInForm from "./components/Admin/AdminLogInForm.js";
-import NavBar from "./components/Partials/NavBar.js";
+import Navigation from "./components/Admin/Navigation/Navigation.js";
 import HomePage from "./components/HomePage/HomePage.js";
-import AdminPersonalizedView from "./components/Admin/AdminPersonalizedView.js";
 import CartViewer from "./components/userComponents/CartViewer";
+
+import Transactions from "./components/Admin/Transactions/Transactions";
+import Contacts from "./components/Admin/Contacts/Contacts";
+import ProductForm from "./components/Admin/Product/ProductForm";
 
 class App extends React.Component {
   state = {
@@ -42,20 +44,21 @@ class App extends React.Component {
   signout = () => {
     this.setState({ email: "" });
     localStorage.removeItem("token");
-    this.props.history.push("/signin");
+    this.props.history.push("/admin/login");
   };
 
   componentDidMount() {
-    API.validate().then(data => {
-      if (data.error) {
-        this.props.history.push("/signin");
-      } else {
-        this.signin(data.email, localStorage.getItem("token"));
-      }
-    });
+    // API.validate().then(data => {
+    //   if (data.error) {
+    //     console.log(data);
+    //     this.props.history.push("/admin/login");
+    //   } else {
+    //     this.signin(data.email, localStorage.getItem("token"));
+    //   }
+    // });
   }
 
-  _removeFromCart = selectedItem => {
+  removeFromCart = selectedItem => {
     let cart = this.state.cart;
     let item = cart.find(itemInCart => itemInCart === selectedItem);
     cart.pop(item);
@@ -66,25 +69,29 @@ class App extends React.Component {
   render() {
     const { signin, signout } = this;
     const { email } = this.state;
+
     return (
       <div>
-        <NavBar signout={signout} />
+        {<Navigation signout={signout} />}
         <Switch>
-          <Route exact path="/admin" component={HomePage} />
-          <Route
-            path="/"
-            component={props => <AdminLogInForm {...props} signin={signin} />}
-          />
           <Route
             path="/cart"
-            compoennt={props => (
-              <CartViewer
-                {...props}
-                cart={this.state.cart}
-                removeFromCart={this._removeFromCart}
-              />
-            )}
+            // component={props => (
+            //   <CartViewer
+            //     {...props}
+            //     cart={this.state.cart}
+            //     removeFromCart={this.removeFromCart}
+            //   />
+            // )}
           />
+          <Route exact path="/admin" component={HomePage} />
+          <Route
+            path="/admin/login"
+            exact
+            component={props => <AdminLogInForm {...props} signin={signin} />}
+          />
+          <Route path="/admin/contacts" component={Contacts} />
+          <Route path="/admin/transactions" component={Transactions} />
           <Route component={() => <h1>Page not found.</h1>} />
         </Switch>
       </div>
