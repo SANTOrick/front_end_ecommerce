@@ -1,6 +1,5 @@
 import React from "react";
-import { Container, Media, Row, Col } from "reactstrap";
-import "./HomePage.css";
+import { Container, Row, Col } from "reactstrap";
 
 export default class NewAddedItems extends React.Component {
   render() {
@@ -10,6 +9,7 @@ export default class NewAddedItems extends React.Component {
           {this.props.images.map((item, index) => (
             <Col sm="3" key={index}>
               <div
+                key={item.id}
                 className="yomama"
                 onClick={() => this.props.handleClick(item)}
                 style={{
