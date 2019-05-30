@@ -21,33 +21,34 @@ export default class CartViewer extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.cart.map(item => (
-            <tr>
-              <th scope="row">
-                <div
-                  className="cart-image"
-                  style={{
-                    backgroundImage: `url(${item.image})`,
-                    backgroundSize: "cover"
-                  }}
-                />
-              </th>
-              <td>{item.name}</td>
-              <td>{item.seller}</td>
-              <td>{item.price}</td>
-              <td>
-                <Button color="primary">Buy</Button>{" "}
-              </td>
-              <td>
-                <Button
-                  color="danger"
-                  onClick={() => this.props.removeFromCart(item)}
-                >
-                  Remove
-                </Button>{" "}
-              </td>
-            </tr>
-          ))}
+          {this.props.cart &&
+            this.props.cart.map(item => (
+              <tr>
+                <th scope="row">
+                  <div
+                    className="cart-image"
+                    style={{
+                      backgroundImage: `url(${item.image})`,
+                      backgroundSize: "cover"
+                    }}
+                  />
+                </th>
+                <td>{item.name}</td>
+                <td>{item.seller}</td>
+                <td>{item.price}</td>
+                <td>
+                  <Button color="primary">Buy</Button>{" "}
+                </td>
+                <td>
+                  <Button
+                    color="danger"
+                    onClick={() => this.props.removeFromCart(item)}
+                  >
+                    Remove
+                  </Button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </Table>
     );

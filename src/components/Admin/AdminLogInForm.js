@@ -1,14 +1,6 @@
 import React from "react";
 import "./AdminLoginForm.css";
-import {
-  InputGroup,
-  Button,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  Container,
-  Row
-} from "reactstrap";
+import { InputGroup, Button, Input, Container, Row } from "reactstrap";
 import API from "../../Api";
 
 export default class AdminLogInForm extends React.Component {

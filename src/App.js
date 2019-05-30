@@ -1,10 +1,15 @@
 import React from "react";
+
 import { BrowserRouter, Switch, Route, withRouter } from "react-router-dom";
 import API from "./Api";
 import "./Assets/bootstrap/css/bootstrap.min.css";
 import "./App.css";
 
-import AdminPage from "./components/Admin/AdminPage.js";
+import Navigation from "./components/Admin/Navigation/Navigation.js";
+
+import Transactions from "./components/Admin/Transactions/Transactions";
+import Contacts from "./components/Admin/Contacts/Contacts";
+import Products from "./components/Admin/Product/Products";
 import ErrorPage from "./components/ErrorPage/ErrorPage.js";
 import ItemsPage from "./components/Items/ItemsPage.js";
 import Footer from "./components/Footer/Footer.js";
@@ -12,9 +17,7 @@ import LandingPage from "./components/LandingPage/LandingPage.js";
 import ContactUs from "./components/ContactUs/ContactUs.js";
 import Privacy from "./components/Privacy/Privacy";
 import AdminLogInForm from "./components/Admin/AdminLogInForm.js";
-import NavBar from "./components/Partials/NavBar.js";
-import CreateNewItem from "./components/Partials/CreateNewItem.js";
-import AdminPersonalizedView from "./components/Admin/AdminPersonalizedView.js";
+import NavBar from "./components/Partials/NavBar";
 import CartViewer from "./components/userComponents/CartViewer";
 
 class App extends React.Component {
@@ -22,8 +25,6 @@ class App extends React.Component {
     userToken: null,
     admin: false,
     basket: null,
-    userToken: null,
-    admin: false,
     cart: [
       {
         name: "Peete",
@@ -36,22 +37,29 @@ class App extends React.Component {
     ]
   };
 
-  state = {
-    email: ""
-  };
-
   signin = (email, token) => {
     localStorage.setItem("token", token);
-    this.setState({ email }, () => {
-    });
+    this.setState({ email }, () => {});
   };
 
   signout = () => {
     this.setState({ email: "" });
     localStorage.removeItem("token");
-    this.props.history.push("/signin");
+    this.props.history.push("/admin/login");
   };
-  _removeFromCart = selectedItem => {
+
+  componentDidMount() {
+    // API.validate().then(data => {
+    //   if (data.error) {
+    //     console.log(data);
+    //     this.props.history.push("/admin/login");
+    //   } else {
+    //     this.signin(data.email, localStorage.getItem("token"));
+    //   }
+    // });
+  }
+
+  removeFromCart = selectedItem => {
     let cart = this.state.cart;
     let item = cart.find(itemInCart => itemInCart === selectedItem);
     cart.pop(item);
@@ -61,29 +69,31 @@ class App extends React.Component {
 
   _addNewItem = newItem => {
     fetch(API + "/products", {
-      method:"POST",
-      headers:{"Content-Type": "application/json"},
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newItem)
-    }).then(resp=>resp.json())
-      .then(data=>console.log(data))
+    })
+      .then(resp => resp.json())
+      .then(data => console.log(data));
   };
 
   render() {
     const { signin, signout } = this;
-    const { email } = this.state;
+    // const { email } = this.state;
     return (
       <BrowserRouter>
         <React.Fragment>
-          <NavBar />
+          {this.props.location.pathname.includes("admin") ? (
+            <Navigation />
+          ) : (
+            <NavBar />
+          )}
           <Switch>
             <Route path="/" component={LandingPage} exact />
-            <Route exact path="/add_new_item" component={props=>(
-              <CreateNewItem {...props}
-              addNewItem={this._addNewItem} />
-            )} />
+
             <Route
               path="/cart"
-              compoennt={props => (
+              component={props => (
                 <CartViewer
                   {...props}
                   cart={this.state.cart}
@@ -94,9 +104,18 @@ class App extends React.Component {
             <Route path="/privacy" component={Privacy} exact />
             <Route path="/items" component={ItemsPage} exact />
             <Route path="/contacts" component={ContactUs} exact />
+            <Route exact path="/admin" component={Products} />
+            <Route
+              path="/admin/login"
+              exact
+              component={props => <AdminLogInForm {...props} signin={signin} />}
+            />
+            <Route path="/admin/products" component={Products} />
+            <Route path="/admin/contacts" component={Contacts} />
+            <Route path="/admin/transactions" component={Transactions} />
             <Route path="*" component={ErrorPage} />
           </Switch>
-          <Footer />
+          {this.props.location.pathname.includes("admin") ? null : <Footer />}
         </React.Fragment>
       </BrowserRouter>
     );
