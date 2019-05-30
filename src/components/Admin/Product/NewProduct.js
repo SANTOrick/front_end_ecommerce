@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import ProductForm from "./ProductForm";
-import axios from "axios";
 import "../Navigation/Navigation.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-class NewProduct extends React.Component {
+class NewProduct extends Component {
   state = {
     modal: false,
     nestedModal: false,
