@@ -8,7 +8,7 @@ const AboutUs = () => {
         <div className="block-heading">
           <h2 className="text-info">About us</h2>
           <p style={{ maxWidth: "600px" }}>
-            Lemme Smash in an e-commerce website.{" "}
+            E-commerce in an e-commerce website.{" "}
           </p>
         </div>
         <div className="row align-items-center">

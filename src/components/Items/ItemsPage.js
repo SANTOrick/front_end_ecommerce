@@ -5,28 +5,30 @@ import "./Items.css";
 
 class ItemsPage extends Component {
   state = {
-    artists: null
+    items: null
   };
 
   componentWillMount() {
     axios
-      .get("/api/artists")
+      .get("http://localhost:3000/products")
       .then(response => {
-        this.setState({ artists: response.data });
+        this.setState({ items: response.data.data });
       })
       .catch(error => {
         console.log(error);
+        console.log(this.state);
       });
   }
 
   render() {
-    if (!this.state.artists) {
+    console.log(this.state.items)
+    if (!this.state.items) {
       return (
         <div style={{ minHeight: "1000px", backgroundColor: "#F6F6F6" }} />
       );
     }
 
-    if (this.state.artists) {
+    if (this.state.items) {
       return (
         <section
           className="clean-block about-us"
@@ -34,21 +36,21 @@ class ItemsPage extends Component {
         >
           <div className="container">
             <div className="block-heading" style={{ marginTop: "80px" }}>
-              <h2 className="text-info">Artists</h2>
+              <h2 className="text-info">Our Products</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 quam urna, dignissim nec auctor in, mattis vitae leo.
               </p>
             </div>
             <div className="row justify-content-center">
-              {this.state.artists.map((item, index) => {
+              {this.state.items.map((item, index) => {
                 return (
                   <ItemCard
                     key={index}
                     name={item.name}
+                    price={item.price}
                     desc={item.description}
-                    picture={item.picture}
-                    artistUrl={item.artistUrl}
+                    image={item.image}
                   />
                 );
               })}

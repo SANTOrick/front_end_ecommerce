@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import ItemsPage from "./ItemsPage";
 
-const ArtistSite = () => {
+const ItemSite = () => {
   return (
     <Fragment>
-      <ArtistPage />
+      <ItemsPage />
     </Fragment>
   );
 };
 
-export default ArtistSite;
+export default ItemSite;

@@ -16,7 +16,7 @@ export default class NavBar extends React.Component {
       <nav className="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar smallNav">
       <div className="container">
         <a className="navbar-brand logo" href="/">
-        Lemme Smash
+        E-commerce
         </a>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
@@ -26,6 +26,11 @@ export default class NavBar extends React.Component {
               route={"/contacts"}
               action={"Contact Us"}
               key={"Contacts"}
+            />
+            <NavButton
+              route={"/items"}
+              action={"Catalog"}
+              key={"Items"}
             />
           </ul>
         </Collapse>

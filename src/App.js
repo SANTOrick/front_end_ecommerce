@@ -43,7 +43,6 @@ class App extends React.Component {
   signin = (email, token) => {
     localStorage.setItem("token", token);
     this.setState({ email }, () => {
-      //this.props.history.push("/admin");
     });
   };
 
@@ -52,17 +51,6 @@ class App extends React.Component {
     localStorage.removeItem("token");
     this.props.history.push("/signin");
   };
-
-  componentDidMount() {
-    API.validate().then(data => {
-      if (data.error) {
-        this.props.history.push("/signin");
-      } else {
-        this.signin(data.email, localStorage.getItem("token"));
-      }
-    });
-  }
-
   _removeFromCart = selectedItem => {
     let cart = this.state.cart;
     let item = cart.find(itemInCart => itemInCart === selectedItem);
@@ -74,9 +62,10 @@ class App extends React.Component {
   _addNewItem = newItem => {
     fetch(API + "/products", {
       method:"POST",
-      headers:{"Content-Type" : "application/json"},
+      headers:{"Content-Type": "application/json"},
       body: JSON.stringify(newItem)
-    })
+    }).then(resp=>resp.json())
+      .then(data=>console.log(data))
   };
 
   render() {
