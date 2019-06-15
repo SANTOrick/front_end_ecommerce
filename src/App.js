@@ -90,17 +90,6 @@ class App extends React.Component {
           )}
           <Switch>
             <Route path="/" component={LandingPage} exact />
-
-            <Route
-              path="/cart"
-              component={props => (
-                <CartViewer
-                  {...props}
-                  cart={this.state.cart}
-                  removeFromCart={this._removeFromCart}
-                />
-              )}
-            />
             <Route path="/privacy" component={Privacy} exact />
             <Route path="/items" component={ItemsPage} exact />
             <Route path="/contacts" component={ContactUs} exact />
